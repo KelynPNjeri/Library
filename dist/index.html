@@ -48,7 +48,7 @@
                 </button>
               </div>
               <div class="modal-body">
-                <form>
+                <form id="book-form">
                     <div class="mb-3">
                       <label for="book-title" class="form-label">Book Title</label>
                       <input type="text" class="form-control" id="book-title" ..aria-describedby="bookTitleHelp">
@@ -59,10 +59,6 @@
                       <input type="number" class="form-control" id="book-pages">
                     </div>
                     <div class="mb-3">
-                        <label for="book-isbn" class="form-label">Book ISBN</label>
-                        <input type="number" class="form-control" id="book-isbn">
-                      </div>
-                    <div class="mb-3">
                         <label for="book-author" class="form-label">Book Author</label>
                         <input type="text" class="form-control" id="book-author">
                     </div>
@@ -70,12 +66,8 @@
                       <input type="checkbox" class="form-check-input" id="read-status">
                       <label class="form-check-label" for="read-status">Read</label>
                     </div>
+                    <input class="btn btn-primary" type="submit" value="Save Book">
                   </form>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-primary">
-                  Save changes
-                </button>
               </div>
             </div>
           </div>
