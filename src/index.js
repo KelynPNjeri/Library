@@ -24,6 +24,26 @@ const clearFields = () => {
     document.getElementById('read-status').checked = false;
 
 }
+const displayBooks = () => {
+    bookArr.forEach((book) => {
+        const divEl = document.createElement("div");
+        divEl.className = "card w-25";
+        divEl.innerHTML = `
+            <div class="card-body">
+                <h5 class="card-title">${book.title}</h5>
+                <p class="card-text">
+                ${book.pages}
+                </p>
+                <p>${book.author}</p>
+                <a href="#" class="btn btn-primary">${book.readStatus}</a>
+            </div>
+        `;
+
+
+    });
+    contentDiv.appendChild(divEl);
+
+}
 const saveBook = () => {
     const bookTitle = document.getElementById('book-title').value;
     const bookPages = document.getElementById('book-pages').value;
@@ -37,16 +57,12 @@ const saveBook = () => {
 
     console.log(bookArr);
     clearFields();
+    displayBooks();
 }
 
-const displayBooks = () => {
 
-}
 
 bookForm.addEventListener('submit', (e) => {
     e.preventDefault();
     saveBook();
 });
-
-
-
