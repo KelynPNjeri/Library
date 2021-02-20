@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>LIBRARY</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <table>
+      <tr>
+        <td>
+          <form
+            onsubmit="event.preventDefault();onFormSubmit();"
+            autocomplete="off"
+          >
+            <div>
+              <label>Book title*</label
+              ><label class="validation-error hide" id="titleValidationError"
+                >This field is required.</label
+              >
+              <input type="text" name="title" id="title" />
+            </div>
+            <div>
+              <label>pages</label>
+              <input type="text" name="pages" id="pages" />
+            </div>
+            <div>
+              <label>Author</label>
+              <input type="text" name="Author" id="Author" />
+            </div>
+            <div>
+              <label>Read Status</label>
+              <input type="text" name="status" id="status" />
+            </div>
+            <div class="form-action-buttons">
+              <input type="submit" value="Submit" />
+            </div>
+          </form>
+        </td>
+        <td>
+          <table class="list" id="booklist">
+            <thead>
+              <tr>
+                <th>Book title</th>
+                <th>Pages</th>
+                <th>Author</th>
+                <th>Read Status</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </td>
+      </tr>
+    </table>
+
+    <script src="script.js"></script>
+  </body>
+</html>
