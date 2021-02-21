@@ -1,86 +1,92 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-undef */
-let selectedRow = null;
-let cell1;
-let cell2;
-let cell3;
-let cell4;
-let row;
+const myLibrary = [];
 
-function readFormData() {
-  const formData = {};
-  formData.title = document.getElementById('title').value;
-  formData.pages = document.getElementById('pages').value;
-  formData.Author = document.getElementById('Author').value;
-  formData.status = document.getElementById('status').value;
-  return formData;
+function Book(title, author, isbn, description, pages, status) {
+  this.title = title;
+  this.author = author;
+  this.isbn = isbn;
+  this.description = description;
+  this.pages = pages;
+  this.status = status;
 }
-
-function insertNewRecord(data) {
-  const table = document.getElementById('booklist').getElementsByTagName('tbody')[0];
-  const newRow = table.insertRow(table.length);
-  cell1 = newRow.insertCell(0);
-  cell1.innerHTML = data.title;
-  cell2 = newRow.insertCell(1);
-  cell2.innerHTML = data.pages;
-  cell3 = newRow.insertCell(2);
-  cell3.innerHTML = data.Author;
-  cell4 = newRow.insertCell(3);
-  cell4.innerHTML = data.status;
-  cell4 = newRow.insertCell(4);
-  cell4.innerHTML = `
-        <a onClick="onEdit(this)">Edit</a>                   
-        <a onClick="onDelete(this)">Delete</a>
-    `;
-}
-
-function resetForm() {
-  document.getElementById('title').value = '';
-  document.getElementById('pages').value = '';
-  document.getElementById('Author').value = '';
-  document.getElementById('status').value = '';
-  selectedRow = null;
-}
-
-function onEdit(td) {
-  selectedRow = td.parentElement.parentElement;
-  document.getElementById('title').value = selectedRow.cells[0].innerHTML;
-  document.getElementById('pages').value = selectedRow.cells[1].innerHTML;
-  document.getElementById('Author').value = selectedRow.cells[2].innerHTML;
-  document.getElementById('status').value = selectedRow.cells[3].innerHTML;
-}
-
-function updateRecord(formData) {
-  selectedRow.cells[0].innerHTML = formData.title;
-  selectedRow.cells[1].innerHTML = formData.pages;
-  selectedRow.cells[2].innerHTML = formData.Author;
-  selectedRow.cells[3].innerHTML = formData.status;
-}
-
-function onDelete(td) {
-  row = td.parentElement.parentElement;
-  document.getElementById('booklist').deleteRow(row.rowIndex);
-  resetForm();
-}
-
-function validate() {
-  isValid = true;
-  if (document.getElementById('title').value === '') {
-    isValid = false;
-    document.getElementById('titleValidationError').classList.remove('hide');
-  } else {
-    isValid = true;
-    if (!document.getElementById('titleValidationError').classList.contains('hide')) document.getElementById('titleValidationError').classList.add('hide');
+Book.prototype.changeReadStatus = function change() {
+  if (this.status.includes('Read')) {
+    this.status = 'Unread';
+  } else if (this.status.includes('Unread')) {
+    this.status = 'Read';
   }
-  return isValid;
-}
+};
+function displayBooks(array) {
+  for (let i = 0; i < myLibrary.length; i += 1) {
+    const book = document.createElement('div');
+    book.className = 'book';
 
+    const booktitle = document.createElement('h4');
+    booktitle.textContent = `Title: ${array[i].title}`;
+    book.appendChild(booktitle);
 
-function onFormSubmit() {
-  if (validate()) {
-    const formData = readFormData();
-    if (selectedRow == null) insertNewRecord(formData);
-    else updateRecord(formData);
-    resetForm();
+    const bookauthor = document.createElement('p');
+    bookauthor.textContent = `Author: ${array[i].author}`;
+    book.appendChild(bookauthor);
+
+    const description = document.createElement('p');
+    description.textContent = `Description: ${array[i].description}`;
+    book.appendChild(description);
+
+    const bookactions = document.createElement('div');
+    bookactions.className = 'book-detail';
+    book.appendChild(bookactions);
+
+    const read = document.createElement('div');
+    read.className = 'stat';
+    read.id = 'status';
+    read.textContent = `Status: ${array[i].status}`;
+
+    bookactions.appendChild(read);
+    const buttonRead = document.createElement('button');
+    buttonRead.textContent = 'Change Status';
+    buttonRead.className = 'status-btn';
+    buttonRead.onclick = () => {
+      array[i].changeReadStatus();
+      const modifiedstatus = document.getElementById('status');
+      modifiedstatus.innerHTML = `Status: ${array[i].status}`;
+    };
+    bookactions.appendChild(buttonRead);
+
+    const buttonRemove = document.createElement('button');
+    buttonRemove.textContent = 'Remove';
+    buttonRemove.className = 'remove-book';
+    buttonRemove.id = 'remove';
+    buttonRemove.onclick = () => {
+      buttonRemove.closest('div.book').remove();
+      array.splice(i, 1);
+    };
+    bookactions.appendChild(buttonRemove);
+
+    document.getElementById('target').appendChild(book);
   }
 }
+// eslint-disable-next-line no-unused-vars
+function addBookToLibrary() {
+  const addedbook = new Book(
+    document.getElementById('input-title').value,
+    document.getElementById('input-author').value,
+    document.getElementById('input-isbn').value,
+    document.getElementById('input-description').value,
+    document.getElementById('input-pages').value,
+    'Unread',
+  );
+
+  myLibrary.push(addedbook);
+
+  document.getElementById('form-container').style.display = 'none';
+  displayBooks(myLibrary);
+  return false;
+}
+
+const addbookbtn = document.getElementById('add-btn');
+
+addbookbtn.addEventListener('click', () => {
+  const form = document.getElementById('form-container');
+  form.style.display = 'block';
+  form.style.position = 'absolute';
+});

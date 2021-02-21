@@ -1,59 +1,42 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>LIBRARY</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
+<html lang="en">
 
-  <body>
-    <table>
-      <tr>
-        <td>
-          <form
-            onsubmit="event.preventDefault();onFormSubmit();"
-            autocomplete="off"
-          >
-            <div>
-              <label>Book title*</label
-              ><label class="validation-error hide" id="titleValidationError"
-                >This field is required.</label
-              >
-              <input type="text" name="title" id="title" />
-            </div>
-            <div>
-              <label>pages</label>
-              <input type="text" name="pages" id="pages" />
-            </div>
-            <div>
-              <label>Author</label>
-              <input type="text" name="Author" id="Author" />
-            </div>
-            <div>
-              <label>Read Status</label>
-              <input type="text" name="status" id="status" />
-            </div>
-            <div class="form-action-buttons">
-              <input type="submit" value="Submit" />
-            </div>
-          </form>
-        </td>
-        <td>
-          <table class="list" id="booklist">
-            <thead>
-              <tr>
-                <th>Book title</th>
-                <th>Pages</th>
-                <th>Author</th>
-                <th>Read Status</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </td>
-      </tr>
-    </table>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Libro</title>
+</head>
 
-    <script src="script.js"></script>
-  </body>
+<body>
+    <header>
+        <nav class="navbar">
+            <h5>Libro Book Inventory</h5>
+        </nav>
+    </header>
+    <div class="add-book">
+        <button class="new-book" id="add-btn">Add book</button>
+    </div>
+    <main class="books-display" id="target">
+
+    </main>
+    <div class="form-container" id="form-container">
+        <form onsubmit="return addBookToLibrary()">
+            <label for="title">Book Title</label>
+            <input type="text" placeholder="Title" id="input-title" autofocus required>
+            <label for="author">Author</label>
+            <input type="text" placeholder="Author" id="input-author" required>
+            <label for="isbn">ISBN</label>
+            <input type="number" placeholder="isbn" id="input-isbn" required>
+            <label for="description">Description</label>
+            <textarea cols="30" rows="10" placeholder="Description" id="input-description"></textarea>
+            <label for="pages">Pages</label>
+            <input type="number" placeholder="pages" id="input-pages" required>
+            <input type="submit" value="submit" id="submit" >
+        </form>
+    </div>
+    
+</body>
+<script src="./script.js"></script>
+
 </html>
